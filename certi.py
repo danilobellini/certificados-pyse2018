@@ -49,8 +49,6 @@ def entry_hash(**kwargs):
 @also_add_csv_map_command(name="csv2pdf")
 def entry_pdf(name, code, category, email,
               duration="", title="", extra="", outdir="certs", **unused):
-    from reportlab.graphics.barcode import qr
-    from reportlab.graphics.shapes import Drawing
     from reportlab.lib.colors import HexColor, black
     from reportlab.lib.enums import TA_CENTER
     from reportlab.lib.pagesizes import A4, landscape
@@ -192,30 +190,17 @@ def entry_pdf(name, code, category, email,
     pyse_logo.width = pyse_logo.minWidth() * pyse_logo_scale
     pyse_logo.height = pyse_logo.height * pyse_logo_scale
     pyse_logo.scale(pyse_logo_scale, pyse_logo_scale)
-    add_frame(3 * cm, height - pyse_logo.height - 2 * cm,
+    add_frame((width - pyse_logo.width) / 2, height - 7.625 * cm,
               pyse_logo.width, pyse_logo.height, [
         pyse_logo,
     ])
 
-    # Draws the QRcode and the textual code
-    qr_size = 6 * cm
-    check_url = "2018.pythonsudeste.org/certificados"
-    qrcode_msg = entry_message(**locals()).encode("utf-8")
-    qr_widget = qr.QrCodeWidget(qrcode_msg, qrVersion=11)
-    qr_left, qr_bottom, qr_right, qr_top = qr_widget.getBounds()
-    qrw = qr_right - qr_left
-    qrh = qr_top - qr_bottom
-    qr_drawing = Drawing(qr_size, qr_size, transform=[qr_size / qrw, 0, 0,
-                                                      qr_size / qrh, 0, 0])
-    qr_drawing.add(qr_widget)
-    add_frame(width * .50625, height - qr_drawing.height - .5 * cm,
-              width * .475, qr_drawing.height, [
-        qr_drawing,
-    ])
-    add_frame(width * .50625, height - qr_drawing.height - 2 * cm,
-              width * .475, 1.5 * cm, [
+    # Draws the validation code
+    check_url = "http://2018.pythonsudeste.org/certificados"
+    add_frame(width * .0625, height - 2.125 * cm,
+              width * .875, 1.5 * cm, [
         Paragraph("Valide em "
-                  f'<link href="http://{check_url}">{check_url}</link>',
+                  f'<link href="{check_url}">{check_url}</link>',
                   mono_style),
         Paragraph(f"Código: {code}", mono_style),
     ])
