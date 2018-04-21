@@ -2,6 +2,7 @@
 import random, string, hashlib, sys, os
 import click
 import pandas as pd
+from unidecode import unidecode
 
 
 @click.group()
@@ -36,8 +37,7 @@ def also_add_csv_map_command(**kwargs):
 @also_add_csv_map_command(name="csv2msg")
 def entry_message(name, code, category,
                   duration="", title="", extra="", **unused):
-    return f"2018-Python-{category}-{code}-{duration}" \
-                      f"-{extra}-{name}-{title}-Sudeste"
+    return f"2018/Python-{category}_{code}_{unidecode(name).lower()}-Sudeste"
 
 
 @also_add_csv_map_command(name="csv2hash")
