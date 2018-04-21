@@ -96,7 +96,7 @@ def entry_pdf(name, code, category, email,
         "PALESTRA": "palestrante",
         "TUTORIAL": "ministrante de tutorial",
         "KEYNOTE": "keynote",
-    }[category]
+    }["ORG" if category.startswith("ORG") else category]
     pyse_descr = (
         "terceira edição da Python Sudeste, realizada "
         "entre os dias 30 de março e 1 de abril de 2018 "
@@ -113,7 +113,7 @@ def entry_pdf(name, code, category, email,
         "KEYNOTE": "Ministrou, na condição de <i>keynote</i> convidado, "
                   f"a palestra <i>{title}</i>, {load_txt}, "
                   f"durante a {pyse_descr}.",
-    }[category]
+    }["ORG" if category.startswith("ORG") else category]
 
     # Geometry and color constants
     height, width = A4
