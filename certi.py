@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import random, string, hashlib, sys, os
+import random, string, hashlib, sys, os, re
 import click
 import pandas as pd
 from unidecode import unidecode
@@ -120,9 +120,15 @@ def entry_pdf(name, code, category, email,
     blueish = HexColor(0x356e9f)
 
     # Create the PDF file
-    dname = os.path.join(outdir, category)
+    dname = os.path.join(outdir, email)
     os.makedirs(dname, exist_ok=True)
-    fname = os.path.join(dname, email + ".pdf")
+    category_ascii = category.lower() if category != "COMUM" else ""
+    name_ascii = unidecode(name).lower().replace(" ", "-")
+    title_ascii = re.sub("[^a-zA-Z0-9 ]", "",
+                         unidecode(title).lower().replace(" ", "-"))
+    joined_name = "_".join(filter(None,
+        [name_ascii, category_ascii, title_ascii]))
+    fname = os.path.join(dname, f"pyse218_cert_{joined_name}.pdf")
     c = canvas.Canvas(fname, pagesize=landscape(A4),
                       initialFontName=normal_style.fontName,
                       initialFontSize=normal_style.fontSize)
