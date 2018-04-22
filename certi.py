@@ -192,14 +192,14 @@ def entry_pdf(name, code, category, email,
 
     # Write the fixed text
     c.setFillColor(black)
-    c.drawCentredString(width / 2, height - 2.5 * cm, "Certificamos que")
+    c.drawCentredString(width / 2, height - 6.35 * cm, "Certificamos que")
 
     # Write the flowable text
-    add_frame(cm, 3.5 * cm, width - 2 * cm, 2 * cm, [
+    add_frame(cm, 7.5 * cm, width - 2 * cm, 2 * cm, [
         Paragraph(name, name_style)
     ])
 
-    add_frame(3 * cm, 6 * cm, width - 6 * cm, 7 * cm, [
+    add_frame(3 * cm, 10 * cm, width - 6 * cm, 8 * cm, [
         Paragraph(main_txt, normal_style),
         Spacer(cm, cm),
         Paragraph(extra, normal_style),
@@ -211,7 +211,7 @@ def entry_pdf(name, code, category, email,
     pyse_logo.width = pyse_logo.minWidth() * pyse_logo_scale
     pyse_logo.height = pyse_logo.height * pyse_logo_scale
     pyse_logo.scale(pyse_logo_scale, pyse_logo_scale)
-    add_frame((width - pyse_logo.width) / 2, height - 7.625 * cm,
+    add_frame(1.25 * cm, 1.25 * cm,
               pyse_logo.width, pyse_logo.height, [
         pyse_logo,
     ])
