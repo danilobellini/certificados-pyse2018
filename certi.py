@@ -112,6 +112,8 @@ def entry_pdf(name, code, category, email,
                   f"a palestra <i>{title}</i>, {load_txt}, "
                   f"durante a {pyse_descr}.",
     }["ORG" if category.startswith("ORG") else category]
+    if extra and not extra.endswith("."):
+        extra = extra + "."
 
     # Geometry and color constants
     height, width = A4
