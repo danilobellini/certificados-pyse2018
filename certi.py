@@ -150,6 +150,19 @@ def entry_pdf(name, code, category, email,
     c.setTitle(f"Certificado de {name} como {category_text} da PySE2018")
     c.setSubject("Certificado da Python Sudeste 2018")
 
+    # Draws the Python logo as a "watermark" background
+    py_logo = svg2rlg("logo_python_light.svg")
+    py_logo_scale = min(width, height) \
+                  / max(py_logo.minWidth(), py_logo.height) \
+                  * .8
+    py_logo.width = py_logo.minWidth() * py_logo_scale
+    py_logo.height = py_logo.height * py_logo_scale
+    py_logo.scale(py_logo_scale, py_logo_scale)
+    add_frame((width - py_logo.width) / 2, (height - py_logo.height) / 2,
+              py_logo.width, py_logo.height, [
+        py_logo,
+    ])
+
     # Draw the border
     c.setFillColor(yellowish)
     yb = c.beginPath()
